@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-10-28T22:36:17.122Z",
+  "bundleAnalysis": {
+    "totalJS": 2004941,
+    "totalCSS": 196485,
+    "mainBundle": 1657002,
+    "vendorBundle": 0,
+    "total": 2201426,
+    "files": {
+      "main.49e259f4.js": {
+        "size": 346287,
+        "type": "javascript",
+        "gzipEstimate": 103886
+      },
+      "main.49e259f4.js.LICENSE.txt": {
+        "size": 1652,
+        "type": "javascript",
+        "gzipEstimate": 496
+      },
+      "main.49e259f4.js.map": {
+        "size": 1657002,
+        "type": "javascript",
+        "gzipEstimate": 497101
+      },
+      "main.0f14e0c5.css": {
+        "size": 74969,
+        "type": "css",
+        "gzipEstimate": 18742
+      },
+      "main.0f14e0c5.css.map": {
+        "size": 121516,
+        "type": "css",
+        "gzipEstimate": 30379
+      }
+    },
+    "gzipEstimate": {
+      "totalJS": 601482,
+      "totalCSS": 49121,
+      "total": 650604
+    }
+  },
+  "recommendations": [
+    {
+      "type": "bundle-size",
+      "priority": "high",
+      "message": "JavaScript bundle size exceeds 1.2MB. Consider code splitting or removing unused dependencies."
+    },
+    {
+      "type": "bundle-size",
+      "priority": "medium",
+      "message": "Main bundle size exceeds 300KB. Consider lazy loading non-critical components."
+    },
+    {
+      "type": "bundle-size",
+      "priority": "medium",
+      "message": "CSS bundle size exceeds 100KB. Consider CSS optimization and unused style removal."
+    },
+    {
+      "type": "optimization",
+      "priority": "medium",
+      "message": "Implement code splitting to reduce initial bundle size."
+    },
+    {
+      "type": "performance",
+      "priority": "low",
+      "message": "Consider implementing service worker for caching and offline support."
+    },
+    {
+      "type": "performance",
+      "priority": "low",
+      "message": "Implement image optimization with WebP format and lazy loading."
+    }
+  ],
+  "optimizations": {
+    "modernReact": true,
+    "framerMotion": true,
+    "bundleOptimization": false,
+    "codesplitting": false,
+    "treeShaking": true
+  }
+}

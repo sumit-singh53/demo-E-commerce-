@@ -1,0 +1,370 @@
+/* Enhanced skeleton loader styles with neon pulse animation */
+
+.skeletonContainer {
+  width: 100%;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.skeletonGrid {
+  display: grid;
+  gap: 2rem;
+}
+
+.skeletonGrid.product {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.skeletonGrid.grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.skeletonCard {
+  position: relative;
+  background: var(--gradient-card);
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 7, 58, 0.1);
+  animation: skeletonPulse 2s ease-in-out infinite;
+}
+
+.skeletonImage {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+  overflow: hidden;
+}
+
+.skeletonContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeletonTitle {
+  position: relative;
+  height: 1.5rem;
+  background: #2a2a2a;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.skeletonDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeletonLine {
+  position: relative;
+  height: 1rem;
+  background: #2a2a2a;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.skeletonLine.line1 {
+  width: 100%;
+}
+
+.skeletonLine.line2 {
+  width: 85%;
+}
+
+.skeletonLine.line3 {
+  width: 60%;
+}
+
+.skeletonFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.skeletonPrice {
+  position: relative;
+  width: 80px;
+  height: 1.5rem;
+  background: #2a2a2a;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.skeletonButton {
+  position: relative;
+  width: 120px;
+  height: 2.5rem;
+  background: #2a2a2a;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.skeletonGridItem {
+  position: relative;
+  height: 340px;
+  background: var(--gradient-card);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 7, 58, 0.1);
+  overflow: hidden;
+  animation: skeletonPulse 2s ease-in-out infinite;
+}
+
+/* Shimmer effect */
+.shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 7, 58, 0.1) 25%,
+    rgba(138, 43, 226, 0.1) 50%,
+    rgba(255, 7, 58, 0.1) 75%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+/* Neon pulse effect */
+.neonPulse {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--color-neon-red), var(--color-neon-violet), var(--color-neon-red));
+  border-radius: 1rem;
+  opacity: 0.3;
+  z-index: -1;
+  filter: blur(8px);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+/* Loading Spinner Styles */
+.spinner {
+  position: relative;
+  display: inline-block;
+}
+
+.spinner.small {
+  width: 24px;
+  height: 24px;
+}
+
+.spinner.medium {
+  width: 40px;
+  height: 40px;
+}
+
+.spinner.large {
+  width: 60px;
+  height: 60px;
+}
+
+.spinnerRing {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+.spinner.small .spinnerRing {
+  width: 24px;
+  height: 24px;
+}
+
+.spinner.medium .spinnerRing {
+  width: 40px;
+  height: 40px;
+}
+
+.spinner.large .spinnerRing {
+  width: 60px;
+  height: 60px;
+}
+
+.spinner.primary .spinnerRing:nth-child(1) {
+  border-top-color: var(--color-neon-red);
+  animation-delay: 0s;
+}
+
+.spinner.primary .spinnerRing:nth-child(2) {
+  border-top-color: var(--color-neon-violet);
+  animation-delay: -0.5s;
+  transform: scale(0.8);
+}
+
+.spinner.primary .spinnerRing:nth-child(3) {
+  border-top-color: var(--color-neon-red);
+  animation-delay: -1s;
+  transform: scale(0.6);
+}
+
+.spinner.secondary .spinnerRing:nth-child(1) {
+  border-top-color: var(--color-neon-violet);
+}
+
+.spinner.secondary .spinnerRing:nth-child(2) {
+  border-top-color: var(--color-neon-red);
+  animation-delay: -0.3s;
+}
+
+.spinner.secondary .spinnerRing:nth-child(3) {
+  border-top-color: var(--color-neon-violet);
+  animation-delay: -0.6s;
+}
+
+/* Progressive Image Styles */
+.progressiveImageContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.imagePlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+  z-index: 1;
+}
+
+.progressiveImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  filter: blur(10px);
+  transition: all var(--duration-slow) var(--easing-default);
+}
+
+.progressiveImage.loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (min-width: 1200px) {
+  .skeletonGrid.product {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .skeletonGrid.product {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .skeletonGrid.product {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .skeletonContainer {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .skeletonGrid.product {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skeletonContainer {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skeletonContainer {
+    padding: 0.75rem;
+  }
+  
+  .skeletonGrid {
+    gap: 1rem;
+  }
+  
+  .skeletonCard {
+    margin: 0;
+  }
+  
+  .skeletonContent {
+    padding: 1rem;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer,
+  .neonPulse,
+  .spinnerRing,
+  .progressiveImage {
+    animation: none;
+  }
+  
+  .skeletonCard,
+  .skeletonGridItem {
+    animation: none;
+  }
+  
+  .progressiveImage {
+    transition: none;
+    opacity: 1;
+    filter: none;
+  }
+}

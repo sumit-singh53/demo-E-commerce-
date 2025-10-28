@@ -1,0 +1,249 @@
+/* ProductGrid component styles with scroll animations */
+
+.gridContainer {
+  width: 100%;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.productGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--duration-slow) var(--easing-default);
+}
+
+.productGrid.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cardWrapper {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all var(--duration-medium) var(--easing-default);
+  transition-delay: var(--animation-delay, 0ms);
+}
+
+.cardWrapper.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Enhanced responsive grid layouts using CSS custom properties */
+.productGrid {
+  display: grid;
+  gap: var(--grid-gap, 2rem);
+  grid-template-columns: var(--grid-columns, repeat(auto-fit, minmax(280px, 1fr)));
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--duration-slow) var(--easing-default);
+}
+
+/* Extra large screens (1536px+) - 5 columns */
+@media (min-width: 1536px) {
+  .productGrid {
+    --grid-columns: repeat(5, 1fr);
+    --grid-gap: 3rem;
+  }
+  
+  .gridContainer {
+    padding: 3rem;
+    max-width: 1600px;
+  }
+}
+
+/* Large screens (1280px+) - 4 columns */
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .productGrid {
+    --grid-columns: repeat(4, 1fr);
+    --grid-gap: 2.5rem;
+  }
+  
+  .gridContainer {
+    padding: 2.5rem;
+  }
+}
+
+/* Medium-large screens (1024px+) - 3 columns */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .productGrid {
+    --grid-columns: repeat(3, 1fr);
+    --grid-gap: 2rem;
+  }
+  
+  .gridContainer {
+    padding: 2rem;
+  }
+}
+
+/* Medium screens (768px+) - 2 columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .productGrid {
+    --grid-columns: repeat(2, 1fr);
+    --grid-gap: 1.5rem;
+  }
+  
+  .gridContainer {
+    padding: 1.5rem;
+  }
+}
+
+/* Small screens (640px+) - 2 columns with smaller gap */
+@media (min-width: 640px) and (max-width: 767px) {
+  .productGrid {
+    --grid-columns: repeat(2, 1fr);
+    --grid-gap: 1.25rem;
+  }
+  
+  .gridContainer {
+    padding: 1.25rem;
+  }
+}
+
+/* Extra small screens (480px+) - 1 column */
+@media (min-width: 480px) and (max-width: 639px) {
+  .productGrid {
+    --grid-columns: 1fr;
+    --grid-gap: 1.5rem;
+  }
+  
+  .gridContainer {
+    padding: 1rem;
+  }
+  
+  .cardWrapper {
+    transform: translateY(15px) scale(0.99);
+  }
+}
+
+/* Very small screens (below 480px) - 1 column, minimal spacing */
+@media (max-width: 479px) {
+  .productGrid {
+    --grid-columns: 1fr;
+    --grid-gap: 1rem;
+  }
+  
+  .gridContainer {
+    padding: 0.75rem;
+  }
+  
+  .cardWrapper {
+    transform: translateY(10px) scale(0.99);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .gridContainer {
+    /* Add more padding for easier scrolling on touch devices */
+    padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
+  }
+  
+  .productGrid {
+    /* Slightly larger gap for easier touch interaction */
+    --grid-gap: calc(var(--grid-gap, 2rem) + 0.5rem);
+  }
+  
+  .cardWrapper {
+    /* Ensure cards are easily tappable */
+    min-height: 44px;
+  }
+}
+
+/* Enhanced performance optimizations */
+.productGrid {
+  will-change: transform, opacity;
+  transform: translate3d(0, 20px, 0); /* Use 3D transforms for GPU acceleration */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.productGrid.visible {
+  transform: translate3d(0, 0, 0);
+  will-change: auto; /* Remove will-change after animation completes */
+}
+
+.cardWrapper {
+  will-change: transform, opacity;
+  transform: translate3d(0, 30px, 0) scale3d(0.95, 0.95, 1);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.cardWrapper.animate {
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+}
+
+/* Remove will-change after animations complete */
+.cardWrapper.animate {
+  animation: removeWillChange 0.1s var(--duration-slow) forwards;
+}
+
+@keyframes removeWillChange {
+  to {
+    will-change: auto;
+  }
+}
+
+/* Optimized stagger delays using CSS custom properties */
+.cardWrapper:nth-child(1) { --animation-delay: 0ms; }
+.cardWrapper:nth-child(2) { --animation-delay: 50ms; }
+.cardWrapper:nth-child(3) { --animation-delay: 100ms; }
+.cardWrapper:nth-child(4) { --animation-delay: 150ms; }
+.cardWrapper:nth-child(5) { --animation-delay: 200ms; }
+.cardWrapper:nth-child(6) { --animation-delay: 250ms; }
+.cardWrapper:nth-child(7) { --animation-delay: 300ms; }
+.cardWrapper:nth-child(8) { --animation-delay: 350ms; }
+.cardWrapper:nth-child(9) { --animation-delay: 400ms; }
+.cardWrapper:nth-child(10) { --animation-delay: 450ms; }
+
+/* Performance optimization for large grids */
+@media (min-width: 1280px) {
+  .cardWrapper:nth-child(n+11) {
+    --animation-delay: 500ms;
+  }
+}
+
+/* Enhanced reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .productGrid,
+  .cardWrapper {
+    transition: none !important;
+    transform: translate3d(0, 0, 0) !important;
+    opacity: 1 !important;
+    will-change: auto !important;
+    animation: none !important;
+    backface-visibility: visible !important;
+    perspective: none !important;
+  }
+  
+  .cardWrapper {
+    --animation-delay: 0ms !important;
+  }
+  
+  .productGrid.visible,
+  .cardWrapper.animate {
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+/* 
+Error banner styles */
+.errorBanner {
+  margin-bottom: var(--spacing-lg, 1.5rem);
+  animation: slideInFromTop var(--duration-medium, 400ms) var(--easing-default, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

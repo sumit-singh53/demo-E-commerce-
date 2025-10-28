@@ -1,0 +1,506 @@
+/* CheckoutForm neon styling */
+.checkoutForm {
+  background: var(--gradient-card);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 7, 58, 0.2);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 7, 58, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.checkoutForm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-secondary);
+  opacity: 0.8;
+}
+
+.progressIndicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.progressStep:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+.progressStepActive:not(:last-child)::after {
+  background: var(--gradient-secondary);
+}
+
+.progressCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+  transition: all var(--duration-medium) var(--easing-default);
+}
+
+.progressCircleActive {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 15px rgba(255, 7, 58, 0.5);
+  transform: scale(1.1);
+}
+
+.progressCircleCompleted {
+  background: var(--color-success);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+}
+
+.progressLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  transition: color var(--duration-medium) var(--easing-default);
+}
+
+.progressLabelActive {
+  color: var(--color-neon-red);
+  font-weight: 600;
+}
+
+.formSection {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionTitle::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--gradient-secondary);
+  border-radius: 2px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.formGridTwo {
+  grid-template-columns: 1fr 1fr;
+}
+
+.inputGroup {
+  position: relative;
+}
+
+.inputLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+  transition: color var(--duration-fast) var(--easing-default);
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  color: var(--color-white);
+  font-size: 1rem;
+  transition: all var(--duration-medium) var(--easing-default);
+  backdrop-filter: blur(5px);
+}
+
+.inputField::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: var(--color-neon-red);
+  box-shadow: 
+    0 0 0 2px rgba(255, 7, 58, 0.2),
+    0 0 15px rgba(255, 7, 58, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inputField:focus + .inputLabel {
+  color: var(--color-neon-red);
+}
+
+.inputError {
+  border-color: var(--color-error);
+  box-shadow: 
+    0 0 0 2px rgba(255, 71, 87, 0.2),
+    0 0 15px rgba(255, 71, 87, 0.3);
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  font-size: 0.75rem;
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideInError var(--duration-medium) var(--easing-default) forwards;
+}
+
+@keyframes slideInError {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--gradient-secondary);
+  border: none;
+  border-radius: 0.75rem;
+  color: var(--color-white);
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-medium) var(--easing-default);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(255, 7, 58, 0.4);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submitButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--duration-slow) var(--easing-default);
+}
+
+.submitButton:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--color-white);
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorAlert {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideInError var(--duration-medium) var(--easing-default);
+}
+
+/* Enhanced responsive design with CSS custom properties */
+.checkoutForm {
+  --form-padding: 2rem;
+  --form-gap: 1rem;
+  --input-padding: 0.75rem 1rem;
+  --input-font-size: 1rem;
+  --button-padding: 1rem 2rem;
+  --button-font-size: 1.125rem;
+  --progress-margin: 2rem;
+  --circle-size: 30px;
+  --label-font-size: 0.75rem;
+}
+
+/* Large screens (1024px+) */
+@media (min-width: 1024px) {
+  .checkoutForm {
+    --form-padding: 2.5rem;
+    --form-gap: 1.25rem;
+    --input-padding: 1rem 1.25rem;
+    --input-font-size: 1.125rem;
+    --button-padding: 1.25rem 2.5rem;
+    --button-font-size: 1.25rem;
+    --progress-margin: 2.5rem;
+    --circle-size: 36px;
+    --label-font-size: 0.875rem;
+  }
+}
+
+/* Medium screens (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .checkoutForm {
+    --form-padding: 2rem;
+    --form-gap: 1rem;
+    --input-padding: 0.875rem 1.125rem;
+    --input-font-size: 1rem;
+    --button-padding: 1rem 2rem;
+    --button-font-size: 1.125rem;
+    --progress-margin: 2rem;
+    --circle-size: 32px;
+    --label-font-size: 0.8125rem;
+  }
+}
+
+/* Small screens (640px - 767px) */
+@media (min-width: 640px) and (max-width: 767px) {
+  .checkoutForm {
+    --form-padding: 1.5rem;
+    --form-gap: 0.875rem;
+    --input-padding: 0.75rem 1rem;
+    --input-font-size: 0.9375rem;
+    --button-padding: 0.875rem 1.75rem;
+    --button-font-size: 1rem;
+    --progress-margin: 1.5rem;
+    --circle-size: 28px;
+    --label-font-size: 0.6875rem;
+  }
+  
+  .formGridTwo {
+    grid-template-columns: 1fr;
+  }
+  
+  .progressLabel {
+    display: none; /* Hide labels on small screens to save space */
+  }
+}
+
+/* Extra small screens (480px - 639px) */
+@media (min-width: 480px) and (max-width: 639px) {
+  .checkoutForm {
+    --form-padding: 1.25rem;
+    --form-gap: 0.75rem;
+    --input-padding: 0.625rem 0.875rem;
+    --input-font-size: 0.875rem;
+    --button-padding: 0.75rem 1.5rem;
+    --button-font-size: 0.9375rem;
+    --progress-margin: 1.25rem;
+    --circle-size: 26px;
+    --label-font-size: 0.625rem;
+  }
+  
+  .formGridTwo {
+    grid-template-columns: 1fr;
+  }
+  
+  .progressLabel {
+    display: none;
+  }
+  
+  .sectionTitle {
+    font-size: 1rem;
+  }
+  
+  .inputLabel {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Very small screens (below 480px) */
+@media (max-width: 479px) {
+  .checkoutForm {
+    --form-padding: 1rem;
+    --form-gap: 0.625rem;
+    --input-padding: 0.5rem 0.75rem;
+    --input-font-size: 0.875rem;
+    --button-padding: 0.625rem 1.25rem;
+    --button-font-size: 0.875rem;
+    --progress-margin: 1rem;
+    --circle-size: 24px;
+    --label-font-size: 0.5625rem;
+  }
+  
+  .formGridTwo {
+    grid-template-columns: 1fr;
+  }
+  
+  .progressLabel {
+    display: none;
+  }
+  
+  .sectionTitle {
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .inputLabel {
+    font-size: 0.75rem;
+    margin-bottom: 0.375rem;
+  }
+  
+  .formSection {
+    margin-bottom: 1.5rem;
+  }
+  
+  .errorMessage {
+    font-size: 0.6875rem;
+    bottom: -1.25rem;
+  }
+}
+
+/* Apply CSS custom properties */
+.checkoutForm {
+  padding: var(--form-padding);
+}
+
+.formGrid {
+  gap: var(--form-gap);
+}
+
+.inputField {
+  padding: var(--input-padding);
+  font-size: var(--input-font-size);
+}
+
+.submitButton {
+  padding: var(--button-padding);
+  font-size: var(--button-font-size);
+}
+
+.progressIndicator {
+  margin-bottom: var(--progress-margin);
+}
+
+.progressCircle {
+  width: var(--circle-size);
+  height: var(--circle-size);
+  font-size: calc(var(--circle-size) * 0.4);
+}
+
+.progressLabel {
+  font-size: var(--label-font-size);
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .inputField {
+    min-height: 44px;
+    font-size: max(16px, var(--input-font-size)); /* Prevent zoom on iOS */
+  }
+  
+  .submitButton {
+    min-height: 44px;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    transform: none;
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(255, 7, 58, 0.1);
+  }
+  
+  .submitButton:active:not(:disabled) {
+    transform: scale(0.98);
+    background: linear-gradient(45deg, #e6063a 0%, #7a25c2 100%);
+  }
+  
+  .inputField:focus {
+    box-shadow: 
+      0 0 0 2px rgba(255, 7, 58, 0.3),
+      0 0 10px rgba(255, 7, 58, 0.2);
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .checkoutForm {
+    --form-padding: 1rem;
+    --progress-margin: 1rem;
+  }
+  
+  .progressIndicator {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .progressStep {
+    flex: 0 0 auto;
+    margin-right: 1rem;
+  }
+  
+  .progressStep:not(:last-child)::after {
+    display: none;
+  }
+}
+
+/* Safe area adjustments for devices with notches */
+@supports (padding: max(0px)) {
+  .checkoutForm {
+    padding-left: max(var(--form-padding), env(safe-area-inset-left));
+    padding-right: max(var(--form-padding), env(safe-area-inset-right));
+    padding-bottom: max(var(--form-padding), env(safe-area-inset-bottom));
+  }
+}
