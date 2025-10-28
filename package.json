@@ -1,0 +1,26 @@
+{
+  "name": "demo-ecommerce",
+  "version": "1.0.0",
+  "description": "Modern e-commerce application with futuristic neon theme",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm start",
+    "frontend": "cd frontend && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "test": "cd frontend && npm test"
+  },
+  "keywords": [
+    "ecommerce",
+    "react",
+    "nodejs",
+    "neon-theme",
+    "futuristic",
+    "beauty-store"
+  ],
+  "author": "Sumit Singh",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
