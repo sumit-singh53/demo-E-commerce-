@@ -1,19 +1,26 @@
-/* ProductGrid component styles with scroll animations */
-
+/* Product Grid Styles with Neon Theme */
 .gridContainer {
-  width: 100%;
-  padding: 2rem;
+  padding: 4rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+.errorBanner {
+  margin-bottom: 2rem;
+}
+
 .productGrid {
-  display: grid;
+  display: flex;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all var(--duration-slow) var(--easing-default);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2rem 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease;
+  -webkit-overflow-scrolling: touch;
 }
 
 .productGrid.visible {
@@ -22,9 +29,12 @@
 }
 
 .cardWrapper {
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: all var(--duration-medium) var(--easing-default);
+  flex: 0 0 320px;
+  height: 420px;
+  scroll-snap-align: start;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: var(--animation-delay, 0ms);
 }
 
@@ -33,217 +43,332 @@
   transform: translateY(0) scale(1);
 }
 
-/* Enhanced responsive grid layouts using CSS custom properties */
-.productGrid {
-  display: grid;
-  gap: var(--grid-gap, 2rem);
-  grid-template-columns: var(--grid-columns, repeat(auto-fit, minmax(280px, 1fr)));
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all var(--duration-slow) var(--easing-default);
+.cardWrapper:hover {
+  transform: translateY(-8px) scale(1.02);
+  transition-duration: 0.3s;
 }
 
-/* Extra large screens (1536px+) - 5 columns */
-@media (min-width: 1536px) {
-  .productGrid {
-    --grid-columns: repeat(5, 1fr);
-    --grid-gap: 3rem;
+/* Stagger animation support */
+.cardWrapper:nth-child(1) { --animation-delay: 0ms; }
+.cardWrapper:nth-child(2) { --animation-delay: 100ms; }
+.cardWrapper:nth-child(3) { --animation-delay: 200ms; }
+.cardWrapper:nth-child(4) { --animation-delay: 300ms; }
+.cardWrapper:nth-child(5) { --animation-delay: 400ms; }
+.cardWrapper:nth-child(6) { --animation-delay: 500ms; }
+.cardWrapper:nth-child(7) { --animation-delay: 600ms; }
+.cardWrapper:nth-child(8) { --animation-delay: 700ms; }
+.cardWrapper:nth-child(9) { --animation-delay: 800ms; }
+.cardWrapper:nth-child(10) { --animation-delay: 900ms; }
+.cardWrapper:nth-child(11) { --animation-delay: 1000ms; }
+.cardWrapper:nth-child(12) { --animation-delay: 1100ms; }
+
+/* Loading states */
+.gridContainer.loading {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingSpinner {
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(0, 255, 255, 0.2);
+  border-top: 3px solid var(--color-neon-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error states */
+.errorContainer {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--gradient-neon-card);
+  border: 1px solid rgba(255, 7, 58, 0.3);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(10px);
+}
+
+.errorIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.errorTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  color: var(--color-gray-300);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.retryButton {
+  background: linear-gradient(135deg, var(--color-neon-red), #ff4757);
+  border: none;
+  color: var(--color-white);
+  padding: 12px 24px;
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.retryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 7, 58, 0.4);
+}
+
+.retryButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Empty state */
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-gray-400);
+}
+
+.emptyIcon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-white);
+}
+
+.emptyMessage {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .cardWrapper {
+    flex: 0 0 300px;
+    height: 400px;
   }
   
-  .gridContainer {
-    padding: 3rem;
-    max-width: 1600px;
+  .productGrid {
+    gap: 1.5rem;
   }
 }
 
-/* Large screens (1280px+) - 4 columns */
-@media (min-width: 1280px) and (max-width: 1535px) {
-  .productGrid {
-    --grid-columns: repeat(4, 1fr);
-    --grid-gap: 2.5rem;
+@media (max-width: 768px) {
+  .gridContainer {
+    padding: 2rem 1rem;
   }
   
-  .gridContainer {
-    padding: 2.5rem;
-  }
-}
-
-/* Medium-large screens (1024px+) - 3 columns */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .productGrid {
-    --grid-columns: repeat(3, 1fr);
-    --grid-gap: 2rem;
+  .cardWrapper {
+    flex: 0 0 280px;
+    height: 380px;
   }
   
-  .gridContainer {
-    padding: 2rem;
-  }
-}
-
-/* Medium screens (768px+) - 2 columns */
-@media (min-width: 768px) and (max-width: 1023px) {
   .productGrid {
-    --grid-columns: repeat(2, 1fr);
-    --grid-gap: 1.5rem;
+    gap: 1rem;
+    padding: 1rem 0;
   }
   
-  .gridContainer {
-    padding: 1.5rem;
+  .gridContainer::before,
+  .gridContainer::after {
+    display: none;
   }
 }
 
-/* Small screens (640px+) - 2 columns with smaller gap */
-@media (min-width: 640px) and (max-width: 767px) {
-  .productGrid {
-    --grid-columns: repeat(2, 1fr);
-    --grid-gap: 1.25rem;
-  }
-  
-  .gridContainer {
-    padding: 1.25rem;
-  }
-}
-
-/* Extra small screens (480px+) - 1 column */
-@media (min-width: 480px) and (max-width: 639px) {
-  .productGrid {
-    --grid-columns: 1fr;
-    --grid-gap: 1.5rem;
+@media (max-width: 480px) {
+  .cardWrapper {
+    flex: 0 0 260px;
+    height: 360px;
   }
   
   .gridContainer {
     padding: 1rem;
   }
   
-  .cardWrapper {
-    transform: translateY(15px) scale(0.99);
-  }
-}
-
-/* Very small screens (below 480px) - 1 column, minimal spacing */
-@media (max-width: 479px) {
   .productGrid {
-    --grid-columns: 1fr;
-    --grid-gap: 1rem;
-  }
-  
-  .gridContainer {
-    padding: 0.75rem;
-  }
-  
-  .cardWrapper {
-    transform: translateY(10px) scale(0.99);
+    padding: 0.5rem 0;
   }
 }
 
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .gridContainer {
-    /* Add more padding for easier scrolling on touch devices */
-    padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
-  }
-  
-  .productGrid {
-    /* Slightly larger gap for easier touch interaction */
-    --grid-gap: calc(var(--grid-gap, 2rem) + 0.5rem);
-  }
-  
-  .cardWrapper {
-    /* Ensure cards are easily tappable */
-    min-height: 44px;
-  }
+/* Intersection Observer Animation Classes */
+.fadeInUp {
+  animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Enhanced performance optimizations */
-.productGrid {
-  will-change: transform, opacity;
-  transform: translate3d(0, 20px, 0); /* Use 3D transforms for GPU acceleration */
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-.productGrid.visible {
-  transform: translate3d(0, 0, 0);
-  will-change: auto; /* Remove will-change after animation completes */
-}
-
-.cardWrapper {
-  will-change: transform, opacity;
-  transform: translate3d(0, 30px, 0) scale3d(0.95, 0.95, 1);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-.cardWrapper.animate {
-  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-}
-
-/* Remove will-change after animations complete */
-.cardWrapper.animate {
-  animation: removeWillChange 0.1s var(--duration-slow) forwards;
-}
-
-@keyframes removeWillChange {
-  to {
-    will-change: auto;
-  }
-}
-
-/* Optimized stagger delays using CSS custom properties */
-.cardWrapper:nth-child(1) { --animation-delay: 0ms; }
-.cardWrapper:nth-child(2) { --animation-delay: 50ms; }
-.cardWrapper:nth-child(3) { --animation-delay: 100ms; }
-.cardWrapper:nth-child(4) { --animation-delay: 150ms; }
-.cardWrapper:nth-child(5) { --animation-delay: 200ms; }
-.cardWrapper:nth-child(6) { --animation-delay: 250ms; }
-.cardWrapper:nth-child(7) { --animation-delay: 300ms; }
-.cardWrapper:nth-child(8) { --animation-delay: 350ms; }
-.cardWrapper:nth-child(9) { --animation-delay: 400ms; }
-.cardWrapper:nth-child(10) { --animation-delay: 450ms; }
-
-/* Performance optimization for large grids */
-@media (min-width: 1280px) {
-  .cardWrapper:nth-child(n+11) {
-    --animation-delay: 500ms;
-  }
-}
-
-/* Enhanced reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .productGrid,
-  .cardWrapper {
-    transition: none !important;
-    transform: translate3d(0, 0, 0) !important;
-    opacity: 1 !important;
-    will-change: auto !important;
-    animation: none !important;
-    backface-visibility: visible !important;
-    perspective: none !important;
-  }
-  
-  .cardWrapper {
-    --animation-delay: 0ms !important;
-  }
-  
-  .productGrid.visible,
-  .cardWrapper.animate {
-    transform: translate3d(0, 0, 0) !important;
-  }
-}
-/* 
-Error banner styles */
-.errorBanner {
-  margin-bottom: var(--spacing-lg, 1.5rem);
-  animation: slideInFromTop var(--duration-medium, 400ms) var(--easing-default, cubic-bezier(0.4, 0, 0.2, 1));
-}
-
-@keyframes slideInFromTop {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.slideInLeft {
+  animation: slideInLeft 0.6s ease forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.scaleIn {
+  animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Grid layout variations */
+.productGrid.masonry {
+  display: masonry;
+  masonry-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.productGrid.list {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.productGrid.compact {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}/* P
+remium Scrollbar Styling */
+.productGrid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.productGrid::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 0 20px;
+}
+
+.productGrid::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--color-neon-blue), var(--color-neon-red));
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.productGrid::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, var(--color-neon-red), var(--color-neon-blue));
+  box-shadow: 0 0 15px rgba(255, 7, 58, 0.5);
+}
+
+/* Scroll indicators */
+.gridContainer::before,
+.gridContainer::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.gridContainer::before {
+  left: 10px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%2300ffff"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.gridContainer::after {
+  right: 10px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%2300ffff"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.gridContainer:hover::before,
+.gridContainer:hover::after {
+  opacity: 1;
+}
+
+.gridContainer {
+  position: relative;
+}
+/*
+ Enhanced scrolling experience */
+.productGrid {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neon-blue) transparent;
+}
+
+/* Scroll snap for better UX */
+.cardWrapper {
+  scroll-snap-stop: always;
+}
+
+/* Add momentum scrolling for iOS */
+.productGrid {
+  -webkit-overflow-scrolling: touch;
+  scroll-padding: 0 2rem;
+}
+
+/* Fade edges for better visual indication */
+.gridContainer::before,
+.gridContainer::after {
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Responsive scroll indicators */
+@media (hover: hover) {
+  .gridContainer:hover::before,
+  .gridContainer:hover::after {
+    opacity: 0.7;
+  }
+}
+
+/* Hide scroll indicators on touch devices */
+@media (hover: none) {
+  .gridContainer::before,
+  .gridContainer::after {
+    display: none !important;
   }
 }

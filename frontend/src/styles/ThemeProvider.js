@@ -134,12 +134,7 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={{ theme }}>
-      <div style={{
-        background: theme.colors.primary.gradients.futuristic,
-        color: theme.colors.neutral.white,
-        minHeight: '100vh',
-        fontFamily: theme.typography.fontFamily
-      }}>
+      <div className="theme-provider-wrapper">
         {children}
       </div>
     </ThemeContext.Provider>

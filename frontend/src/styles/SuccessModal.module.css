@@ -1,4 +1,4 @@
-/* Success Modal with celebration animations */
+/* Success Modal Styles with Neon Theme */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -6,89 +6,103 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 2rem;
 }
 
 .modalContent {
-  background: var(--gradient-card);
-  border: 1px solid rgba(255, 7, 58, 0.3);
-  border-radius: 1.5rem;
-  padding: 3rem 2rem 2rem;
-  width: 90%;
+  background: linear-gradient(145deg, rgba(10, 10, 26, 0.95), rgba(0, 17, 51, 0.95));
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  border-radius: 20px;
+  padding: 3rem 2rem;
   max-width: 500px;
+  width: 100%;
+  text-align: center;
   position: relative;
-  overflow: hidden;
+  backdrop-filter: blur(20px);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(255, 7, 58, 0.2);
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(0, 255, 136, 0.2);
 }
 
 .modalContent::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient-secondary);
-  animation: shimmer 2s ease-in-out infinite;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 136, 0.3),
+    rgba(0, 255, 255, 0.3),
+    rgba(0, 255, 136, 0.3)
+  );
+  border-radius: 22px;
+  z-index: -1;
+  filter: blur(8px);
+  animation: successGlow 3s ease-in-out infinite;
 }
 
-@keyframes shimmer {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-.successIcon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1.5rem;
-  background: var(--gradient-secondary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  position: relative;
-  animation: successPulse 2s ease-in-out infinite;
-}
-
-@keyframes successPulse {
+@keyframes successGlow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    opacity: 0.5;
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
-    transform: scale(1.05);
+    opacity: 0.8;
+    transform: scale(1.02);
   }
 }
 
-.successIcon::after {
-  content: '';
+.closeButton {
   position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 2px solid var(--color-success);
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--color-gray-400);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
   border-radius: 50%;
-  opacity: 0;
-  animation: ripple 2s ease-out infinite;
+  transition: all 0.2s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes ripple {
+.closeButton:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.successIcon {
+  font-size: 5rem;
+  color: var(--color-success);
+  margin-bottom: 1.5rem;
+  animation: successBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));
+}
+
+@keyframes successBounce {
   0% {
-    transform: scale(0.8);
-    opacity: 1;
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-90deg);
+    opacity: 0.8;
   }
   100% {
-    transform: scale(1.4);
-    opacity: 0;
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
   }
 }
 
@@ -96,9 +110,8 @@
   font-size: 2rem;
   font-weight: 700;
   color: var(--color-white);
-  text-align: center;
   margin-bottom: 1rem;
-  background: var(--gradient-secondary);
+  background: linear-gradient(135deg, var(--color-success), #00cc6a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -106,43 +119,125 @@
 
 .successMessage {
   font-size: 1.125rem;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  margin-bottom: 2rem;
+  color: var(--color-gray-300);
   line-height: 1.6;
-}
-
-.orderDetails {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 1rem;
-  padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.9;
 }
 
-.orderTitle {
-  font-size: 1.125rem;
+.receiptInfo {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.receiptTitle {
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-white);
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  text-align: center;
 }
 
-.orderItems {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem 0;
+.receiptRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.receiptRow:last-child {
+  border-bottom: none;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--color-success);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.receiptLabel {
+  color: var(--color-gray-300);
+}
+
+.receiptValue {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, var(--color-neon-blue), #0080ff);
+  border: none;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 150px;
+  justify-content: center;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 1px solid rgba(0, 255, 136, 0.5);
+  color: var(--color-success);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 150px;
+  justify-content: center;
+}
+
+.secondaryButton:hover {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: var(--color-success);
+  transform: translateY(-2px);
+}
+
+/* Order Details */
+.orderDetails {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: left;
 }
 
 .orderItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .orderItem:last-child {
@@ -150,174 +245,64 @@
 }
 
 .itemName {
+  color: var(--color-gray-300);
   flex: 1;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+}
+
+.itemQuantity {
+  color: var(--color-gray-400);
+  margin: 0 1rem;
+  font-size: 0.875rem;
 }
 
 .itemPrice {
+  color: var(--color-white);
   font-weight: 600;
-  color: var(--color-neon-red);
+  font-size: 0.875rem;
 }
 
-.orderTotal {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-white);
-  padding-top: 1rem;
-  border-top: 2px solid rgba(255, 7, 58, 0.3);
+/* Animation for modal appearance */
+.modalOverlay {
+  animation: fadeIn 0.3s ease-out;
 }
 
-.totalAmount {
-  color: var(--color-success);
-  font-size: 1.5rem;
+.modalContent {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.actionButtons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.actionButton {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--duration-medium) var(--easing-default);
-  position: relative;
-  overflow: hidden;
-}
-
-.primaryButton {
-  background: var(--gradient-secondary);
-  color: var(--color-white);
-}
-
-.primaryButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-.secondaryButton {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--color-white);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.secondaryButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
-}
-
-.closeButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-  transition: all var(--duration-fast) var(--easing-default);
-}
-
-.closeButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--color-white);
-  transform: scale(1.1);
-}
-
-/* Confetti Animation */
-.confetti {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: var(--color-neon-red);
-  animation: confettiFall 3s ease-out forwards;
-}
-
-.confetti:nth-child(2n) {
-  background: var(--color-neon-violet);
-  animation-delay: 0.1s;
-}
-
-.confetti:nth-child(3n) {
-  background: var(--color-success);
-  animation-delay: 0.2s;
-}
-
-.confetti:nth-child(4n) {
-  background: var(--color-white);
-  animation-delay: 0.3s;
-}
-
-@keyframes confettiFall {
-  0% {
-    transform: translateY(-100vh) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
+@keyframes fadeIn {
+  from {
     opacity: 0;
   }
-}
-
-/* Particle effects */
-.particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--color-neon-red);
-  border-radius: 50%;
-  animation: particleFloat 4s ease-in-out infinite;
-}
-
-.particle:nth-child(2n) {
-  background: var(--color-neon-violet);
-  animation-delay: 0.5s;
-}
-
-.particle:nth-child(3n) {
-  background: var(--color-success);
-  animation-delay: 1s;
-}
-
-@keyframes particleFloat {
-  0%, 100% {
-    transform: translateY(0) scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: translateY(-50px) scale(1);
+  to {
     opacity: 1;
   }
 }
 
-/* Responsive design */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .modalOverlay {
+    padding: 1rem;
+  }
+  
   .modalContent {
-    padding: 2rem 1.5rem;
-    margin: 1rem;
+    padding: 2rem 1rem;
+  }
+  
+  .successIcon {
+    font-size: 4rem;
   }
   
   .successTitle {
@@ -330,9 +315,36 @@
   
   .actionButtons {
     flex-direction: column;
+    align-items: center;
   }
   
-  .actionButton {
+  .primaryButton,
+  .secondaryButton {
     width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 1.5rem 1rem;
+  }
+  
+  .successIcon {
+    font-size: 3rem;
+  }
+  
+  .successTitle {
+    font-size: 1.25rem;
+  }
+  
+  .receiptInfo,
+  .orderDetails {
+    padding: 1rem;
+  }
+  
+  .receiptRow,
+  .orderItem {
+    font-size: 0.875rem;
   }
 }

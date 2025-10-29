@@ -7,8 +7,14 @@ import { CartContext } from '../context/CartContext';
 import styles from '../styles/Cart.module.css';
 
 function CartView() {
-  const { cart, loading, removeFromCart } = useContext(CartContext);
+  const { cart, loading, initialized, removeFromCart } = useContext(CartContext);
   const [removingItems, setRemovingItems] = useState(new Set());
+  
+  console.log('CartView render - cart:', cart);
+  console.log('CartView render - loading:', loading);
+  console.log('CartView render - initialized:', initialized);
+  console.log('CartView render - cart.items:', cart?.items);
+  console.log('CartView render - cart.items.length:', cart?.items?.length);
 
   const handleRemove = async (productId) => {
     setRemovingItems(prev => new Set([...prev, productId]));
@@ -78,7 +84,7 @@ function CartView() {
     }
   };
 
-  if (loading) {
+  if (loading && !initialized) {
     return (
       <motion.div 
         className={styles.loading}
@@ -121,10 +127,37 @@ function CartView() {
         variants={titleVariants}
       >
         Your Cart
+        <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
+          <button 
+            onClick={async () => {
+              try {
+                const response = await fetch('http://localhost:5000/api/cart?userId=mock');
+                const data = await response.json();
+                alert(`API Test: ${JSON.stringify(data)}`);
+              } catch (error) {
+                alert(`API Error: ${error.message}`);
+              }
+            }}
+            style={{ 
+              padding: '0.5rem 1rem', 
+              marginRight: '0.5rem',
+              background: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Test API
+          </button>
+          <span style={{ color: 'white', fontSize: '0.7rem' }}>
+            Cart items: {cart?.items?.length || 0} | Loading: {loading ? 'Yes' : 'No'}
+          </span>
+        </div>
       </motion.h1>
       
       <AnimatePresence mode="wait">
-        {cart.items.length === 0 ? (
+        {!cart.items || cart.items.length === 0 ? (
           <motion.div
             key="empty"
             className={styles.emptyCart}
@@ -167,7 +200,7 @@ function CartView() {
             animate="animate"
           >
             <AnimatePresence>
-              {cart.items.map((item, index) => (
+              {cart.items && cart.items.map((item, index) => (
                 <motion.div
                   key={item.product._id || item.product.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -221,7 +254,7 @@ function CartView() {
                 }}
               >
                 Total: <AnimatedCounter 
-                  value={cart.items.reduce((total, item) => total + (item.product.price * item.qty), 0)}
+                  value={cart.items ? cart.items.reduce((total, item) => total + (item.product.price * item.qty), 0) : 0}
                   prefix="₹"
                   decimals={2}
                 />

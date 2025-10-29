@@ -1,15 +1,15 @@
-// Main App component with enhanced error handling
+// Modern App component with Wix-inspired design
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import ErrorBoundary from './components/ErrorBoundary';
-import { OfflineBanner } from './components/NetworkErrorHandler';
 import { ThemeProvider } from './styles/ThemeProvider';
-import { ScrollEffectsProvider } from './context/ScrollEffectsContext';
 import { CartProvider } from './context/CartContext';
 import { CartNotificationProvider } from './context/CartNotificationContext';
+import './styles/globals.css';
 
 function App() {
   return (
@@ -17,31 +17,18 @@ function App() {
       <ThemeProvider>
         <CartProvider>
           <CartNotificationProvider>
-            <ScrollEffectsProvider>
-              <OfflineBanner />
+            <div className="app">
               <Router>
-                <ErrorBoundary>
-                  <Navbar />
-                </ErrorBoundary>
-                <Routes>
-                  <Route path="/" element={
-                    <ErrorBoundary>
-                      <Home />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/cart" element={
-                    <ErrorBoundary>
-                      <Cart />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/checkout" element={
-                    <ErrorBoundary>
-                      <Checkout />
-                    </ErrorBoundary>
-                  } />
-                </Routes>
+                <Navbar />
+                <main className="main-content">
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                  </Routes>
+                </main>
               </Router>
-            </ScrollEffectsProvider>
+            </div>
           </CartNotificationProvider>
         </CartProvider>
       </ThemeProvider>

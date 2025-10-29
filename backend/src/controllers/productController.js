@@ -1,5 +1,9 @@
 // Product controller
-const Product = require('../models/product');
+// Only require models when not using mock data
+let Product;
+if (process.env.USE_MOCK !== 'true') {
+  Product = require('../models/product');
+}
 const { getMockProducts } = require('../utils/mockData');
 
 exports.getAllProducts = async (req, res, next) => {

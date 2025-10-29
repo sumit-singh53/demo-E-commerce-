@@ -10,13 +10,23 @@ app.use(express.json());
 // Database connection based on DB_TYPE
 if (process.env.USE_MOCK === 'true') {
   console.log('Using mock data - no database connection needed');
-} else if (process.env.DB_TYPE === 'mongo') {
-  const connectMongo = require('./db/mongo');
-  connectMongo();
-} else if (process.env.DB_TYPE === 'sqlite') {
-  const connectSQLite = require('./db/sqlite');
-  connectSQLite();
-  console.log('SQLite database initialized');
+} else {
+  try {
+    if (process.env.DB_TYPE === 'mongo') {
+      const connectMongo = require('./db/mongo');
+      connectMongo();
+    } else if (process.env.DB_TYPE === 'sqlite') {
+      const connectSQLite = require('./db/sqlite');
+      connectSQLite();
+      console.log('SQLite database initialized');
+    } else {
+      console.log('No database type specified, using mock data');
+      process.env.USE_MOCK = 'true'; // Force mock mode
+    }
+  } catch (error) {
+    console.error('Database connection failed, falling back to mock data:', error.message);
+    process.env.USE_MOCK = 'true'; // Force mock mode on error
+  }
 }
 
 app.use('/api/products', require('./routes/productRoutes'));

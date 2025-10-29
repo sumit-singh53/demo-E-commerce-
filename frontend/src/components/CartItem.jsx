@@ -3,16 +3,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from '../styles/Cart.module.css';
 
-function CartItem({ item, onRemove, onQuantityChange }) {
-  const [isRemoving, setIsRemoving] = useState(false);
+function CartItem({ item, onRemove, onQuantityChange, isRemoving = false }) {
   const [quantity, setQuantity] = useState(item.qty);
 
   const handleRemove = async () => {
-    setIsRemoving(true);
-    // Add a small delay for the animation to be visible
-    setTimeout(() => {
-      onRemove(item.product._id || item.product.id);
-    }, 400);
+    onRemove(item.product._id || item.product.id);
   };
 
   const handleQuantityChange = (newQty) => {
