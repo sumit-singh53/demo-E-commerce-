@@ -1,8 +1,7 @@
-// GET /api/products
 const express = require('express');
 const router = express.Router();
-const productController = require('../controllers/productController');
+const { getProducts } = require('../controllers/productController');
 
-router.get('/', productController.getAllProducts);
+router.route('/').get(getProducts);
 
 module.exports = router;

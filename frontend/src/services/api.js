@@ -1,4 +1,5 @@
 // Centralized REST API client with enhanced error handling
+// Use relative paths to leverage the proxy setup
 const API_BASE_URL = process.env.REACT_APP_API_URL || '';
 
 // Enhanced error types for better error handling
@@ -84,7 +85,8 @@ async function fetchWithTimeout(url, options = {}, timeout = 10000) {
 // API functions with enhanced error handling
 export async function fetchProducts() {
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/api/products`);
+    const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/products` : '/api/products';
+    const res = await fetchWithTimeout(apiUrl);
     return await handleResponse(res);
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -94,7 +96,8 @@ export async function fetchProducts() {
 
 export async function fetchCart() {
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/api/cart?userId=mock`);
+    const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/cart?userId=mock` : '/api/cart?userId=mock';
+    const res = await fetchWithTimeout(apiUrl);
     return await handleResponse(res);
   } catch (error) {
     console.error('Error fetching cart:', error);
@@ -104,7 +107,8 @@ export async function fetchCart() {
 
 export async function addToCart(productId, qty = 1) {
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/api/cart/add`, {
+    const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/cart/add` : '/api/cart/add';
+    const res = await fetchWithTimeout(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: "mock", productId, qty }),
@@ -118,7 +122,8 @@ export async function addToCart(productId, qty = 1) {
 
 export async function removeFromCart(productId) {
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/api/cart/remove`, {
+    const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/cart/remove` : '/api/cart/remove';
+    const res = await fetchWithTimeout(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: "mock", productId }),
@@ -132,7 +137,8 @@ export async function removeFromCart(productId) {
 
 export async function checkout() {
   try {
-    const res = await fetchWithTimeout(`${API_BASE_URL}/api/checkout`, {
+    const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/checkout` : '/api/checkout';
+    const res = await fetchWithTimeout(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: "mock" }),

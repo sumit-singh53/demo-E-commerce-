@@ -13,8 +13,9 @@ if (process.env.USE_MOCK === 'true') {
 } else {
   try {
     if (process.env.DB_TYPE === 'mongo') {
-      const connectMongo = require('./db/mongo');
-      connectMongo();
+      // Use the new config/db.js for MongoDB connection
+      const connectDB = require('../config/db');
+      connectDB();
     } else if (process.env.DB_TYPE === 'sqlite') {
       const connectSQLite = require('./db/sqlite');
       connectSQLite();

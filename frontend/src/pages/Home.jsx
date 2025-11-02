@@ -16,7 +16,8 @@ function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products');
+        // Use relative path to leverage proxy
+        const response = await fetch('/api/products');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -47,7 +48,8 @@ function Home() {
     setLoading(true);
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products');
+        // Use relative path to leverage proxy
+        const response = await fetch('/api/products');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

@@ -131,9 +131,9 @@ function CartView() {
           <button 
             onClick={async () => {
               try {
-                const response = await fetch('http://localhost:5000/api/cart?userId=mock');
+                const response = await fetch('/api/cart?userId=mock');
                 const data = await response.json();
-                alert(`API Test: ${JSON.stringify(data)}`);
+                alert(`API Test: ${JSON.stringify(data, null, 2)}`);
               } catch (error) {
                 alert(`API Error: ${error.message}`);
               }
@@ -148,7 +148,34 @@ function CartView() {
               cursor: 'pointer'
             }}
           >
-            Test API
+            Test Cart API
+          </button>
+          <button 
+            onClick={async () => {
+              try {
+                const response = await fetch('/api/cart/add', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ userId: "mock", productId: "1", qty: 1 })
+                });
+                const data = await response.json();
+                alert(`Add Test: ${JSON.stringify(data, null, 2)}`);
+                window.location.reload(); // Refresh to see changes
+              } catch (error) {
+                alert(`Add Error: ${error.message}`);
+              }
+            }}
+            style={{ 
+              padding: '0.5rem 1rem', 
+              marginRight: '0.5rem',
+              background: '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Test Add Item
           </button>
           <span style={{ color: 'white', fontSize: '0.7rem' }}>
             Cart items: {cart?.items?.length || 0} | Loading: {loading ? 'Yes' : 'No'}

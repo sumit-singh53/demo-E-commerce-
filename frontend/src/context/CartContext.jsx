@@ -3,7 +3,8 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const CartContext = createContext();
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+// Use relative paths to leverage the proxy setup
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState({ items: [] });
@@ -14,8 +15,9 @@ export function CartProvider({ children }) {
   const fetchCart = async () => {
     try {
       setError(null);
-      console.log('Fetching cart from:', `${API_BASE_URL}/api/cart?userId=mock`);
-      const res = await fetch(`${API_BASE_URL}/api/cart?userId=mock`);
+      const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/cart?userId=mock` : '/api/cart?userId=mock';
+      console.log('Fetching cart from:', apiUrl);
+      const res = await fetch(apiUrl);
       console.log('Cart fetch response status:', res.status);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
@@ -44,7 +46,8 @@ export function CartProvider({ children }) {
   const addToCart = async (productId, qty = 1) => {
     try {
       console.log('Adding to cart:', { productId, qty });
-      const res = await fetch(`${API_BASE_URL}/api/cart/add`, {
+      const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/cart/add` : '/api/cart/add';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: "mock", productId, qty }),
@@ -63,7 +66,8 @@ export function CartProvider({ children }) {
   const removeFromCart = async (productId) => {
     try {
       console.log('Removing from cart:', { productId });
-      const res = await fetch(`${API_BASE_URL}/api/cart/remove`, {
+      const apiUrl = API_BASE_URL ? `${API_BASE_URL}/api/cart/remove` : '/api/cart/remove';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: "mock", productId }),

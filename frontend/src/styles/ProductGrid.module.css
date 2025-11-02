@@ -372,3 +372,79 @@ remium Scrollbar Styling */
     display: none !important;
   }
 }
+
+/* Additional styles for ProductList component */
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-neon-cyan);
+}
+
+.emptyState h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-neon-pink);
+}
+
+.emptyState p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.retryButton {
+  background: linear-gradient(135deg, var(--color-neon-pink), var(--color-neon-cyan));
+  color: var(--color-neon-black);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 7, 58, 0.3);
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: var(--border-radius-lg);
+}
+
+.loadingSpinner {
+  color: var(--color-neon-cyan);
+  font-size: 1.2rem;
+  font-weight: bold;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Responsive grid layout for desktop */
+@media (min-width: 768px) {
+  .productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    overflow: visible;
+  }
+  
+  .cardWrapper {
+    flex: none;
+    height: auto;
+  }
+}

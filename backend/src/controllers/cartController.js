@@ -17,16 +17,21 @@ const getProductById = async (productId) => {
   const products = await getMockProducts();
   // Convert productId to number for proper comparison
   const numericId = parseInt(productId);
-  return products.find(p => p.id === numericId);
+  const product = products.find(p => p.id === numericId);
+  console.log(`Looking for product ID: ${productId} (${numericId}), found:`, product ? product.title : 'Not found');
+  return product;
 };
 
 exports.getCart = async (req, res, next) => {
   try {
     const userId = req.query.userId || req.body.userId || 'mock'; // For demo
     
+    console.log('Get cart request for userId:', userId);
+    
     // Always use mock data when USE_MOCK is true
     if (process.env.USE_MOCK === 'true') {
       const cart = global.mockCarts[userId] || { user: userId, items: [] };
+      console.log('Returning cart:', cart);
       return res.status(200).json(cart);
     }
     
@@ -45,20 +50,25 @@ exports.addToCart = async (req, res, next) => {
   try {
     const { userId, productId, qty } = req.body;
     
+    console.log('Add to cart request:', { userId, productId, qty, type: typeof productId });
+    
     // Validation
-    if (!userId || !productId || !qty) {
+    if (!userId || (!productId && productId !== 0) || !qty) {
       return res.status(400).json({ error: 'Missing required fields: userId, productId, qty' });
     }
     
     // Validate productId exists
     const product = await getProductById(productId);
     if (!product) {
-      return res.status(400).json({ error: 'Valid productId is required' });
+      console.log('Product not found for ID:', productId);
+      return res.status(400).json({ error: `Product with ID ${productId} not found` });
     }
     
     // Always use mock data when USE_MOCK is true
     if (process.env.USE_MOCK === 'true') {
       let cart = global.mockCarts[userId] || { user: userId, items: [] };
+      
+      console.log('Current cart before adding:', cart);
       
       // Check if product already exists in cart
       const existingIndex = cart.items.findIndex(item => item.product.id == productId);
@@ -66,17 +76,20 @@ exports.addToCart = async (req, res, next) => {
       if (existingIndex !== -1) {
         // Update quantity if product exists
         cart.items[existingIndex].qty += parseInt(qty);
+        console.log('Updated existing item quantity');
       } else {
         // Add new product to cart
         cart.items.push({ 
           product: product, 
           qty: parseInt(qty) 
         });
+        console.log('Added new item to cart');
       }
       
       // Save cart to global storage
       global.mockCarts[userId] = cart;
       
+      console.log('Cart after adding:', cart);
       return res.status(200).json(cart);
     }
     
@@ -98,8 +111,10 @@ exports.removeFromCart = async (req, res, next) => {
   try {
     const { userId, productId } = req.body;
     
+    console.log('Remove from cart request:', { userId, productId, type: typeof productId });
+    
     // Validation
-    if (!userId || !productId) {
+    if (!userId || (!productId && productId !== 0)) {
       return res.status(400).json({ error: 'Missing required fields: userId, productId' });
     }
     
@@ -107,12 +122,18 @@ exports.removeFromCart = async (req, res, next) => {
     if (process.env.USE_MOCK === 'true') {
       let cart = global.mockCarts[userId] || { user: userId, items: [] };
       
+      console.log('Current cart before removing:', cart);
+      
       // Remove product from cart
+      const initialLength = cart.items.length;
       cart.items = cart.items.filter(item => item.product.id != productId);
+      
+      console.log(`Removed ${initialLength - cart.items.length} items`);
       
       // Save cart to global storage
       global.mockCarts[userId] = cart;
       
+      console.log('Cart after removing:', cart);
       return res.status(200).json(cart);
     }
     
